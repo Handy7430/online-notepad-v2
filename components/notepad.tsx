@@ -136,7 +136,8 @@ export default function Notepad() {
         className="flex-1 p-4 resize-none focus:outline-none font-mono bg-yellow-50 dark:bg-yellow-950 text-yellow-900 dark:text-yellow-100 border-none w-full"
         value={content}
         onChange={(e) => handleContentChange(e.target.value)}
-        placeholder="Start typing your notes here..."
+        placeholder="📝 “Write Anything. Anywhere. No Login Needed.”
+A fast, distraction-free online notepad that saves your notes automatically."
         style={{ direction: "ltr", textAlign: "left" }}
       />
 
