@@ -1,3 +1,4 @@
+import { jsPDF } from "jspdf";
 "use client"
 
 import { useEffect, useState } from "react"
