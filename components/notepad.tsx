@@ -1,5 +1,5 @@
 "use client"
-
+import { jsPDF } from "jspdf"
 import { useEffect, useState } from "react"
 import { useDebounce } from "@/hooks/use-debounce"
 import { NotepadTabs } from "./notepad-tabs"
@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { v4 as uuidv4 } from "uuid"
 // ← add this import
-import { jsPDF } from "jspdf"
 
 interface Note {
   id: string
