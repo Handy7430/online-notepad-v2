@@ -9,7 +9,7 @@ export default function Contact() {
     <main className="min-h-screen flex flex-col bg-yellow-50 dark:bg-gray-900">
       <header className="bg-yellow-200 dark:bg-yellow-800 p-4 border-b border-yellow-400 dark:border-yellow-700">
         <div className="flex justify-between items-center mb-2">
-          <h1 className="text-2xl font-bold text-yellow-900 dark:text-yellow-100">Online Notepad</h1>
+          <h1 className="text-2xl font-bold text-yellow-900 dark:text-yellow-100">free Online Notepad</h1>
           <ThemeToggle />
         </div>
         <Navigation />
@@ -84,7 +84,7 @@ export default function Contact() {
                     href="mailto:info@onlinenotepad.com"
                     className="text-yellow-600 dark:text-yellow-400 hover:underline"
                   >
-                    info@onlinenotepad.com
+                    info@onlinenotepad.cc
                   </a>
                 </p>
                 <p className="mt-2 text-yellow-900 dark:text-yellow-100">
@@ -94,7 +94,7 @@ export default function Contact() {
                     href="mailto:support@onlinenotepad.com"
                     className="text-yellow-600 dark:text-yellow-400 hover:underline"
                   >
-                    support@onlinenotepad.com
+                    support@onlinenotepad.cc
                   </a>
                 </p>
               </div>
