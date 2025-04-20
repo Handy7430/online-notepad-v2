@@ -1,4 +1,3 @@
-import { jsPDF } from "jspdf";
 "use client"
 
 import { useEffect, useState } from "react"
@@ -7,6 +6,8 @@ import { NotepadTabs } from "./notepad-tabs"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { v4 as uuidv4 } from "uuid"
+// ← add this import
+import { jsPDF } from "jspdf"
 
 interface Note {
   id: string
@@ -27,7 +28,6 @@ export default function Notepad() {
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes))
     } else {
-      // Create a default note if none exist
       const defaultNote = { id: uuidv4(), title: "New Note", content: "" }
       setNotes([defaultNote])
       setActiveNoteId(defaultNote.id)
@@ -76,15 +76,9 @@ export default function Notepad() {
 
   // Delete a note
   const handleDeleteNote = (id: string) => {
-    if (notes.length <= 1) {
-      // Don't delete the last note
-      return
-    }
-
+    if (notes.length <= 1) return
     const newNotes = notes.filter((note) => note.id !== id)
     setNotes(newNotes)
-
-    // If we're deleting the active note, switch to another one
     if (id === activeNoteId) {
       setActiveNoteId(newNotes[0].id)
     }
@@ -101,17 +95,31 @@ export default function Notepad() {
     setNotes(notes.map((note) => (note.id === activeNoteId ? { ...note, content: newContent } : note)))
   }
 
-  // Export note
+  // ← REPLACE your old handleExport with this PDF version:
   const handleExport = () => {
     if (!activeNote) return
 
-    const element = document.createElement("a")
-    const file = new Blob([content], { type: "text/plain" })
-    element.href = URL.createObjectURL(file)
-    element.download = `${activeNote.title || "note"}.txt`
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
+    // Create a new PDF instance
+    const doc = new jsPDF({
+      unit: "pt",
+      format: "letter",
+      compress: true,
+    })
+
+    // Grab the text
+    const text = content || ""
+
+    // Split text to fit within page margins
+    const margin = 40
+    const pageWidth = doc.internal.pageSize.getWidth() - margin * 2
+    const lines = doc.splitTextToSize(text, pageWidth)
+
+    // Add text to PDF
+    doc.text(lines, margin, margin + 20)
+
+    // Download
+    const filename = `${activeNote.title || "note"}.pdf`
+    doc.save(filename)
   }
 
   return (
@@ -129,7 +137,7 @@ export default function Notepad() {
         <div className="text-sm text-yellow-800 dark:text-yellow-200">My Notes</div>
         <Button variant="outline" size="sm" onClick={handleExport} className="text-xs">
           <Download className="h-3 w-3 mr-1" />
-          Export
+          Export as PDF
         </Button>
       </div>
 
@@ -137,8 +145,7 @@ export default function Notepad() {
         className="flex-1 p-4 resize-none focus:outline-none font-mono bg-yellow-50 dark:bg-yellow-950 text-yellow-900 dark:text-yellow-100 border-none w-full"
         value={content}
         onChange={(e) => handleContentChange(e.target.value)}
-        placeholder="📝 “Write Anything. Anywhere. No Login Needed.”
-A fast, distraction-free online notepad that saves your notes automatically."
+        placeholder={`📝 “Write Anything. Anywhere. No Login Needed.”\nA fast, distraction-free online notepad that saves your notes automatically.`}
         style={{ direction: "ltr", textAlign: "left" }}
       />
 
