@@ -7,9 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Online Notepad",
-  description: "A simple online notepad for taking notes",
-    generator: 'v0.dev'
+  title: "free Online Notepad fast and No Login",
+  description: "Free online notepad which will help you Write and store your notes",
+    generator: 'handb7430 + v0'
 }
 
 export default function RootLayout({
